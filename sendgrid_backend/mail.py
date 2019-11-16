@@ -261,7 +261,9 @@ class SendgridBackend(BaseEmailBackend):
 
         msg.body = ' ' if msg.body == '' else msg.body
 
-        if isinstance(msg, EmailMultiAlternatives):
+        if hasattr(msg, "template_id"):
+            pass
+        elif isinstance(msg, EmailMultiAlternatives):
             mail.add_content(Content("text/plain", msg.body))
             for alt in msg.alternatives:
                 if alt[1] == "text/html":
